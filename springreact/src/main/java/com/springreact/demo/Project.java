@@ -28,7 +28,7 @@ public class Project {
 		this.updated_At = new Date();
 	}
 
-	void Project() {
+	public void Project() {
 
 	}
 
