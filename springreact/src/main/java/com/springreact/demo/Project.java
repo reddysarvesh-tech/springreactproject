@@ -2,22 +2,40 @@ package com.springreact.demo;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Project {
 
 	@Id
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@NotBlank(message = "Projec Name should not be blank")
 	private String name;
+	@NotBlank(message = "Project identifier is required")
+	@Size(min = 4,max = 10)
+	@Column(updatable = false,unique = true)
 	private String projectIdentifier;
 	private String description;
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date created_At;
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date updated_At;
-
+	@JsonFormat(pattern = "yyyy-mm-dd")
+	private Date start_date;
+	@JsonFormat(pattern = "yyyy-mm-dd")
+	private Date end_date;
+	
 	@PrePersist
 	protected void createdAt() {
 		this.created_At = new Date();
@@ -28,15 +46,15 @@ public class Project {
 		this.updated_At = new Date();
 	}
 
-	public void Project() {
+	public Project() {
 
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -78,6 +96,22 @@ public class Project {
 
 	public void setUpdated_At(Date updated_At) {
 		this.updated_At = updated_At;
+	}
+
+	public Date getStart_date() {
+		return start_date;
+	}
+
+	public void setStart_date(Date start_date) {
+		this.start_date = start_date;
+	}
+
+	public Date getEnd_date() {
+		return end_date;
+	}
+
+	public void setEnd_date(Date end_date) {
+		this.end_date = end_date;
 	}
 
 
