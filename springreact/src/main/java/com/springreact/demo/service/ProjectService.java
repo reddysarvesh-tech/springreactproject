@@ -1,5 +1,7 @@
 package com.springreact.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +33,9 @@ public class ProjectService {
     	}
 
     	return projectRepository.findByProjectIdentifier(projectid);
+    }
+    
+    public Iterable<Project> getAllProject(){
+    	return projectRepository.findAll();
     }
 }
